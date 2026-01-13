@@ -1,0 +1,42 @@
+{
+  "mcpServers": {
+    "poe2-optimizer": {
+      "description": "Path of Exile 2 Build Optimizer - Provides character analysis, passive tree analysis, item validation, and Path of Building integration",
+      "repository": "https://github.com/HivemindOverlord/poe2-mcp",
+      "installation": "pip install poe2-mcp",
+      "command": "python3",
+      "args": ["-m", "poe2_mcp"],
+      "features": [
+        "Character data fetching from poe.ninja",
+        "Defensive stats analysis",
+        "Passive tree analysis",
+        "Support gem validation",
+        "Path of Building import/export",
+        "Build comparison with ladder players",
+        "Game mechanics explanation"
+      ],
+      "tools_count": 32
+    },
+    "poe2scout": {
+      "description": "POE2Scout MCP Server - Professional trading intelligence with market data and currency analysis",
+      "repository": "https://github.com/vanzan01/poe2scout-mcp",
+      "installation": "npm install or clone from repository",
+      "command": "node",
+      "args": ["index.js"],
+      "features": [
+        "Real-time market data",
+        "Currency exchange rates",
+        "Price history analysis",
+        "Trading signals",
+        "Volume-based pricing",
+        "Outlier detection",
+        "League data access"
+      ],
+      "tools_count": 11
+    }
+  },
+  "usage_notes": {
+    "poe2-optimizer": "Requires Python 3.10+ and your PoE2 character to be public on poe.ninja",
+    "poe2scout": "Rate limited to 2 requests/second with intelligent retry logic"
+  }
+}
