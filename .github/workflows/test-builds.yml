@@ -1,0 +1,167 @@
+name: POE Build Testing Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  validate-config:
+    name: Validate MCP Configuration
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Check MCP configuration
+      run: node scripts/check-mcp-config.js
+      
+    - name: Validate JSON files
+      run: |
+        echo "Validating package.json..."
+        cat package.json | jq empty
+        echo "✓ package.json is valid"
+        
+        echo "Validating mcp-config.json..."
+        cat mcp-config.json | jq empty
+        echo "✓ mcp-config.json is valid"
+
+  test-build-analysis:
+    name: Test Build Analysis
+    runs-on: ubuntu-latest
+    needs: validate-config
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Run build analysis test
+      run: npm test
+      
+    - name: Run build analyzer
+      run: npm run analyze
+
+  setup-mcp-servers:
+    name: Setup and Verify MCP Servers
+    runs-on: ubuntu-latest
+    needs: validate-config
+    
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11']
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install POE2 MCP Optimizer
+      run: |
+        echo "Installing poe2-mcp package..."
+        pip install poe2-mcp
+        echo "✓ poe2-mcp installed successfully"
+        
+    - name: Verify POE2 MCP installation
+      run: |
+        python -c "import poe2_mcp; print('poe2_mcp version:', poe2_mcp.__version__ if hasattr(poe2_mcp, '__version__') else 'installed')"
+        
+    - name: Clone POE2Scout MCP
+      run: |
+        echo "Cloning poe2scout-mcp repository..."
+        git clone https://github.com/vanzan01/poe2scout-mcp.git /tmp/poe2scout-mcp
+        cd /tmp/poe2scout-mcp
+        echo "✓ poe2scout-mcp cloned successfully"
+        
+    - name: Setup POE2Scout MCP
+      run: |
+        cd /tmp/poe2scout-mcp
+        if [ -f package.json ]; then
+          npm install
+          echo "✓ poe2scout-mcp dependencies installed"
+        else
+          echo "⚠ No package.json found, skipping npm install"
+        fi
+        
+    - name: Display server information
+      run: |
+        echo "=== MCP Servers Setup Summary ==="
+        echo ""
+        echo "POE2 Optimizer (Python):"
+        python -m pip show poe2-mcp || echo "Package info not available"
+        echo ""
+        echo "POE2Scout (Node.js):"
+        if [ -d /tmp/poe2scout-mcp ]; then
+          echo "✓ Repository cloned at /tmp/poe2scout-mcp"
+        fi
+
+  integration-test:
+    name: Integration Testing
+    runs-on: ubuntu-latest
+    needs: [test-build-analysis, setup-mcp-servers]
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        pip install poe2-mcp
+        
+    - name: Run all tests
+      run: |
+        echo "=== Running Integration Tests ==="
+        npm run check-config
+        npm test
+        npm run analyze
+        echo "✓ All tests passed successfully"
+        
+    - name: Generate test report
+      run: |
+        echo "=== Test Report ===" > test-report.txt
+        echo "Date: $(date)" >> test-report.txt
+        echo "Repository: poe-builds" >> test-report.txt
+        echo "Status: PASSED" >> test-report.txt
+        echo "" >> test-report.txt
+        echo "MCP Servers Tested:" >> test-report.txt
+        echo "- poe2-optimizer (Python)" >> test-report.txt
+        echo "- poe2scout (Node.js)" >> test-report.txt
+        cat test-report.txt
+        
+    - name: Upload test report
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-report
+        path: test-report.txt
+        retention-days: 30

@@ -1,0 +1,30 @@
+{
+  "name": "poe-builds",
+  "version": "1.0.0",
+  "description": "Path of Exile build testing and analysis using MCP servers",
+  "main": "index.js",
+  "scripts": {
+    "test": "node scripts/test-build-analysis.js",
+    "analyze": "node scripts/analyze-build.js",
+    "check-config": "node scripts/check-mcp-config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chase-weiser88/poe-builds.git"
+  },
+  "keywords": [
+    "path-of-exile",
+    "poe",
+    "builds",
+    "mcp",
+    "model-context-protocol"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chase-weiser88/poe-builds/issues"
+  },
+  "homepage": "https://github.com/chase-weiser88/poe-builds#readme",
+  "devDependencies": {},
+  "dependencies": {}
+}
