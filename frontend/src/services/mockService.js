@@ -12,7 +12,7 @@ let currentUser = null;
 
 // Authentication
 export const mockAuthService = {
-  login: async (email, password) => {
+  login: async (email) => {
     await delay();
     const user = users.find(u => u.email === email);
     if (!user) {
@@ -25,7 +25,7 @@ export const mockAuthService = {
     };
   },
 
-  register: async (username, email, password) => {
+  register: async (username, email) => {
     await delay();
     if (users.find(u => u.email === email)) {
       throw new Error('Email already exists');

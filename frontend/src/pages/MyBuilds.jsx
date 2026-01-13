@@ -1,10 +1,7 @@
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
 import { FiFolder } from 'react-icons/fi';
 
 const MyBuilds = () => {
-  const { user } = useAuth();
-
   return (
     <div className="min-h-screen">
       <div className="bg-poe-secondary border-b border-poe-accent/20">

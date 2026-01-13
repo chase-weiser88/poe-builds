@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import BuildGrid from '../components/builds/BuildGrid';
@@ -23,9 +23,13 @@ const BuildBrowser = () => {
   const debouncedSearch = useDebounce(filters.search, 500);
   const { builds, loading, pagination, fetchBuilds, setPage } = useBuilds();
 
-  useEffect(() => {
+  const loadBuilds = useCallback(() => {
     fetchBuilds({ ...filters, search: debouncedSearch });
-  }, [debouncedSearch, filters.sort, filters.class, filters.ascendancy, filters.minBudget, filters.maxBudget, filters.tags, pagination.page]);
+  }, [fetchBuilds, filters, debouncedSearch]);
+
+  useEffect(() => {
+    loadBuilds();
+  }, [loadBuilds, pagination.page]);
 
   const handleFilterChange = (newFilters) => {
     setFilters(prev => ({ ...prev, ...newFilters }));

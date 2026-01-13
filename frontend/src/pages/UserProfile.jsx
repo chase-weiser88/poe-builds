@@ -1,13 +1,7 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import { FiUser } from 'react-icons/fi';
-import Card from '../components/common/Card';
 
 const UserProfile = () => {
-  const { id } = useParams();
-  const { user } = useAuth();
-
   return (
     <div className="min-h-screen">
       <div className="bg-poe-secondary border-b border-poe-accent/20">

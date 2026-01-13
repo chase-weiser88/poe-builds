@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import buildService from '../services/buildService';
 
-export const useBuilds = (initialFilters = {}) => {
+export const useBuilds = () => {
   const [builds, setBuilds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -71,5 +71,20 @@ export const useBuild = (id) => {
     fetchBuild();
   }, [id]);
 
-  return { build, loading, error, refetch: () => fetchBuild() };
+  const refetch = async () => {
+    if (!id) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await buildService.getBuildById(id);
+      setBuild(result);
+    } catch (err) {
+      setError(err.message);
+      setBuild(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { build, loading, error, refetch };
 };
