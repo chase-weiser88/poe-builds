@@ -14,7 +14,7 @@ Complete guide for setting up the POE Builds repository with MCP servers.
    # Install from https://nodejs.org/
    ```
 
-2. **Python 3.9+**
+2. **Python 3.10+**
    ```bash
    # Check version
    python3 --version
@@ -226,7 +226,7 @@ docker run -it poe-builds
 ## Verification Checklist
 
 - [ ] Node.js 20+ installed
-- [ ] Python 3.9+ installed
+- [ ] Python 3.10+ installed
 - [ ] poe2-mcp package installed
 - [ ] Configuration validated (`npm run check-config`)
 - [ ] Tests passing (`npm test`)

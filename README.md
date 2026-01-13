@@ -35,7 +35,7 @@ This repository provides a complete pipeline for:
 ### Prerequisites
 
 - **Node.js** 20+ (for scripts and POE2Scout)
-- **Python** 3.9+ (for POE2 Optimizer)
+- **Python** 3.10+ (for POE2 Optimizer)
 - **Git** (for repository management)
 
 ### Quick Start
@@ -167,9 +167,9 @@ The repository includes automated testing workflows:
 ### Matrix Testing
 
 Tests across multiple Python versions:
-- Python 3.9
 - Python 3.10
 - Python 3.11
+- Python 3.12
 
 ## 📊 Build Testing Workflow
 
@@ -232,7 +232,7 @@ poe-builds/
 ## 🔐 Requirements & Notes
 
 ### POE2 Optimizer Requirements
-- Python 3.9 or higher
+- Python 3.10 or higher
 - Your PoE2 character must be public on poe.ninja
 - Internet connection for API access
 

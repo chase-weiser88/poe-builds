@@ -36,7 +36,7 @@
     }
   },
   "usage_notes": {
-    "poe2-optimizer": "Requires Python 3.9+ and your PoE2 character to be public on poe.ninja",
+    "poe2-optimizer": "Requires Python 3.10+ and your PoE2 character to be public on poe.ninja",
     "poe2scout": "Rate limited to 2 requests/second with intelligent retry logic"
   }
 }
