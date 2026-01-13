@@ -1,16 +1,45 @@
 # POE Builds - Path of Exile Build Testing & Analysis
 
-A comprehensive repository for testing and analyzing Path of Exile builds using the highest-rated Model Context Protocol (MCP) servers. This project integrates professional tools for character optimization, market intelligence, and automated build testing.
+A comprehensive repository for testing, analyzing, and showcasing Path of Exile builds using the highest-rated Model Context Protocol (MCP) servers and a modern React frontend.
 
 ## 🎯 Overview
 
 This repository provides a complete pipeline for:
+- **Frontend Web Application**: React-based build planner, browser, and comparison tool
 - **Build Analysis**: Character optimization using AI-powered analysis
 - **Market Intelligence**: Real-time trading data and price trends
 - **Automated Testing**: CI/CD pipeline for validating build configurations
 - **MCP Integration**: Seamless connection to Path of Exile and Path of Building tools
 
+## 🌐 Frontend Application
+
+### Features
+- **Build Calculator/Planner** - Interactive build creation with character class selection and stat calculations
+- **Build Browser** - Browse and search community builds with advanced filtering
+- **Build Comparison** - Side-by-side comparison of multiple builds
+- **User Authentication** - JWT-based authentication with user profiles
+- **Rating & Comments** - Community engagement features
+- **Import/Export** - POB code import/export functionality
+
+### Quick Start (Frontend)
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Visit `http://localhost:5173` to access the application.
+
+For detailed frontend documentation, see [frontend/README.md](frontend/README.md).
+
 ## 🚀 Features
+
+### React Frontend Application
+- Modern React 19 with Vite for fast development
+- Tailwind CSS for responsive design
+- React Router v6 for navigation
+- Mock API for development without backend
+- Comprehensive build showcase and planning tools
 
 ### Integrated MCP Servers
 
@@ -219,13 +248,24 @@ poe-builds/
 ├── .github/
 │   └── workflows/
 │       └── test-builds.yml      # CI/CD pipeline
+├── frontend/                     # React frontend application
+│   ├── src/
+│   │   ├── components/          # UI components
+│   │   ├── pages/               # Page components
+│   │   ├── context/             # React contexts
+│   │   ├── hooks/               # Custom hooks
+│   │   ├── services/            # API services
+│   │   ├── utils/               # Utilities
+│   │   └── App.jsx              # Main app
+│   ├── package.json             # Frontend dependencies
+│   └── README.md                # Frontend documentation
 ├── scripts/
 │   ├── test-build-analysis.js   # Main test script
 │   ├── analyze-build.js         # Build analyzer
 │   └── check-mcp-config.js      # Config validator
 ├── .gitignore                   # Git ignore rules
 ├── package.json                 # Node.js configuration
-├── mcp-config.json             # MCP server configuration
+├── mcp-config.json              # MCP server configuration
 └── README.md                    # This file
 ```
 
