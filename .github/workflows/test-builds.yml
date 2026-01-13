@@ -94,8 +94,9 @@ jobs:
         
     - name: Verify POE2 MCP installation
       run: |
+        echo "Verifying poe2-mcp installation..."
         pip show poe2-mcp
-        python -m pip list | grep poe2-mcp
+        echo "✓ poe2-mcp package verified"
         
     - name: Clone POE2Scout MCP
       run: |
