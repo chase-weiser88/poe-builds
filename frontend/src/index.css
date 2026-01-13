@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-poe-dark text-poe-light;
+  }
+}
+
+@layer components {
+  .poe-card {
+    @apply bg-poe-secondary rounded-lg shadow-lg border border-poe-accent/20;
+  }
+  
+  .poe-btn-primary {
+    @apply bg-poe-primary hover:bg-poe-accent text-white font-semibold py-2 px-4 rounded transition-colors;
+  }
+  
+  .poe-btn-secondary {
+    @apply bg-poe-secondary hover:bg-poe-accent/20 text-poe-light font-semibold py-2 px-4 rounded border border-poe-accent/30 transition-colors;
+  }
+}
