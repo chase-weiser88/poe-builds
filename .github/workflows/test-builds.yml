@@ -94,7 +94,8 @@ jobs:
         
     - name: Verify POE2 MCP installation
       run: |
-        python -c "import poe2_mcp; print('poe2_mcp version:', poe2_mcp.__version__ if hasattr(poe2_mcp, '__version__') else 'installed')"
+        pip show poe2-mcp
+        python -m pip list | grep poe2-mcp
         
     - name: Clone POE2Scout MCP
       run: |
